@@ -1,0 +1,266 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base styles */
+@layer base {
+  body {
+    @apply font-sans leading-normal text-gray-900 bg-gray-50;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  /* Layout */
+  .app-container {
+    @apply min-h-screen flex flex-col;
+  }
+
+  .app-header {
+    @apply bg-teal-700 text-white py-4 shadow-sm border-b border-teal-500;
+  }
+
+  .header-content {
+    @apply max-w-7xl mx-auto px-4 flex justify-between items-center;
+  }
+
+  .header-logo {
+    @apply text-2xl font-semibold text-white no-underline hover:text-teal-200 transition-colors;
+  }
+
+  .app-main {
+    @apply flex-1 py-8;
+  }
+
+  .app-footer {
+    @apply bg-gray-50 border-t border-teal-500 py-2 mt-auto;
+  }
+
+  .footer-content {
+    @apply max-w-7xl mx-auto px-4 text-center;
+  }
+
+  .copyright-text {
+    @apply text-xs text-gray-500;
+  }
+
+  /* Page container */
+  .page-container {
+    @apply max-w-7xl mx-auto px-4;
+  }
+
+  .page-header {
+    @apply flex justify-between items-center mb-8;
+  }
+
+  .page-title {
+    @apply text-3xl font-bold text-teal-700;
+  }
+
+  /* Filters */
+  .filters-container {
+    @apply grid grid-cols-[200px_1fr] gap-4 mb-6 p-6 bg-white rounded-lg shadow-sm border border-teal-500;
+  }
+
+  /* Table */
+  .table-container {
+    @apply bg-white rounded-lg shadow-sm overflow-x-auto border border-teal-500;
+  }
+
+  .data-table {
+    @apply w-full border-collapse;
+  }
+
+  .data-table thead {
+    @apply bg-teal-50 border-b border-teal-500;
+  }
+
+  .data-table th {
+    @apply px-4 py-3 text-left font-semibold text-gray-900 text-xs uppercase tracking-wider;
+  }
+
+  .data-table td {
+    @apply px-4 py-4 border-b border-gray-100;
+  }
+
+  .data-table tbody tr:hover {
+    @apply bg-teal-50 transition-colors;
+  }
+
+  /* Status badges - with narrow padding, border radius, and fixed width */
+  .status-badge {
+    @apply inline-block px-2 py-0.5 text-xs font-semibold rounded text-center;
+    min-width: 100px;
+    width: 100px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* New - Blue */
+  .status-badge-new {
+    @apply bg-blue-50 text-blue-700 border border-blue-500;
+  }
+
+  /* In Progress - Yellow */
+  .status-badge-progress {
+    @apply bg-yellow-50 text-yellow-700 border border-yellow-500;
+  }
+
+  /* Resolved - Green */
+  .status-badge-resolved {
+    @apply bg-green-50 text-green-700 border border-green-500;
+  }
+
+  /* Closed - Gray */
+  .status-badge-closed {
+    @apply bg-gray-50 text-gray-700 border border-gray-500;
+  }
+
+  /* Forms */
+  .ticket-form,
+  .form-group {
+    @apply mb-4;
+  }
+
+  .form-actions {
+    @apply flex gap-3 mt-6 items-center;
+  }
+
+  /* Ticket details */
+  .ticket-details {
+    @apply grid gap-6 lg:gap-8;
+  }
+
+  .detail-section {
+    @apply bg-white p-6 rounded-lg shadow-sm border border-teal-500;
+  }
+
+  .section-title {
+    @apply text-xl font-bold mb-6 text-teal-700 border-b border-teal-500 pb-2;
+  }
+
+  .detail-grid {
+    @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 mb-6;
+  }
+
+  .detail-item {
+    @apply mb-4;
+  }
+
+  .detail-item.full-width {
+    @apply col-span-full;
+  }
+
+  .detail-label {
+    @apply block text-sm font-semibold text-gray-700 mb-1 uppercase tracking-wide;
+  }
+
+  .detail-value {
+    @apply text-gray-900 text-base;
+  }
+
+  .detail-value.description,
+  .detail-value.summary {
+    @apply bg-gray-50 p-4 rounded-lg whitespace-pre-wrap border border-teal-500;
+  }
+
+  .ticket-image {
+    @apply max-w-full h-auto rounded-lg mt-2 shadow-sm;
+  }
+
+  /* AI Summary Badge */
+  .ai-summary {
+    @apply bg-teal-50 p-5 rounded-lg shadow-sm border border-teal-500;
+  }
+
+  /* Pagination */
+  .pagination {
+    @apply flex justify-center items-center gap-4 mt-6 p-4 bg-white rounded-lg shadow-sm border border-teal-500;
+  }
+
+  .pagination-info {
+    @apply text-gray-700 text-sm font-medium;
+  }
+
+  /* Messages */
+  .loading-message {
+    @apply p-8 text-center bg-white rounded-lg shadow-sm border border-teal-500;
+  }
+
+  .error-message {
+    @apply p-8 text-center bg-red-50 rounded-lg shadow-sm border border-red-500 text-red-600;
+  }
+
+  .success-message {
+    @apply text-green-600 font-semibold;
+  }
+}
+
+  /* Responsive */
+@media (max-width: 1024px) {
+  .ticket-details {
+    @apply grid-cols-1;
+  }
+}
+
+@media (max-width: 768px) {
+  .page-header {
+    @apply flex-col gap-4 items-stretch;
+  }
+
+  .filters-container {
+    @apply grid-cols-1;
+  }
+
+  .hide-mobile {
+    @apply hidden;
+  }
+
+  .detail-grid {
+    @apply grid-cols-1;
+  }
+
+  .pagination {
+    @apply flex-wrap;
+  }
+
+  .modal-content {
+    @apply m-4;
+  }
+
+  .header-content {
+    @apply flex-col gap-3;
+  }
+
+  .ticket-details {
+    @apply gap-4;
+  }
+
+  .detail-section {
+    @apply p-4;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    @apply text-2xl;
+  }
+
+  .data-table th,
+  .data-table td {
+    @apply px-2 py-2 text-sm;
+  }
+
+  .detail-section {
+    @apply p-3;
+  }
+
+  .section-title {
+    @apply text-lg;
+  }
+
+  .header-logo {
+    @apply text-lg;
+  }
+}
