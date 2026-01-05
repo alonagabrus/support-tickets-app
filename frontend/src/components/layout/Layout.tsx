@@ -8,6 +8,7 @@ interface LayoutProps {
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
   const navigate = useNavigate();
   const username = localStorage.getItem('username');
+  const isLoggedIn = !!localStorage.getItem('token');
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -24,12 +25,21 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           </Link>
           <div className="flex items-center gap-4">
             {username && <span className="text-sm text-white">Welcome, {username}</span>}
-            <button
-              onClick={handleLogout}
-              className="text-white hover:text-gray-200 text-sm font-medium transition-colors underline"
-            >
-              Logout
-            </button>
+            {isLoggedIn ? (
+              <button
+                onClick={handleLogout}
+                className="text-white hover:text-gray-200 text-sm font-medium transition-colors underline"
+              >
+                Logout
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="text-white hover:text-gray-200 text-sm font-medium transition-colors underline"
+              >
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </header>

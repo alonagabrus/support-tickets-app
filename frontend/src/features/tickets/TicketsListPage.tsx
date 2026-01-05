@@ -35,6 +35,7 @@ export const TicketsListPage: React.FC = () => {
     page: 1,
     pageSize: 20,
   });
+  const isLoggedIn = !!localStorage.getItem('token');
 
   useEffect(() => {
     const timeoutId = setTimeout(() => {
@@ -100,7 +101,7 @@ export const TicketsListPage: React.FC = () => {
       <div className="page-container">
         <div className="page-header">
           <h1 className="page-title">Support Tickets</h1>
-          <Button onClick={() => setIsModalOpen(true)}>Add Ticket</Button>
+          {isLoggedIn && <Button onClick={() => setIsModalOpen(true)}>Add Ticket</Button>}
         </div>
 
         <div className="filters-container">

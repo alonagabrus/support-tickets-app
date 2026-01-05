@@ -19,30 +19,9 @@ export const AppRoutes: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/"
-          element={
-            <ProtectedRoute>
-              <Navigate to="/tickets" replace />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tickets"
-          element={
-            <ProtectedRoute>
-              <TicketsListPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/tickets/:id"
-          element={
-            <ProtectedRoute>
-              <TicketDetailsPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/" element={<Navigate to="/tickets" replace />} />
+        <Route path="/tickets" element={<TicketsListPage />} />
+        <Route path="/tickets/:id" element={<TicketDetailsPage />} />
       </Routes>
     </BrowserRouter>
   );

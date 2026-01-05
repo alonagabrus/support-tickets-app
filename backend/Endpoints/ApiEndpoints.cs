@@ -75,18 +75,19 @@ public static class ApiEndpoints
     public static void MapTicketEndpoints(WebApplication app)
     {
         var ticketGroup = app.MapGroup("/api/tickets")
-            .RequireAuthorization()
             .WithTags("Tickets");
 
         ticketGroup.MapGet("", async ([FromServices] ITicketService ticketService, [FromQuery] string? status, [FromQuery] string? search, [FromQuery] int page = ApplicationConstants.Pagination.DefaultPage, [FromQuery] int pageSize = ApplicationConstants.Pagination.DefaultPageSize) =>
             Results.Ok(await ticketService.GetTicketsAsync(CreateTicketFilters(status, search, page, pageSize))))
-            .WithName("GetTickets").Produces<PagedResult<TicketDto>>(StatusCodes.Status200OK);
+            .WithName("GetTickets").Produces<PagedResult<TicketDto>>(StatusCodes.Status200OK)
+            .AllowAnonymous();
 
         ticketGroup.MapGet("/{id}", async ([FromServices] ITicketService ticketService, string id) =>
             await ticketService.GetTicketByIdAsync(id) is { } ticket ? Results.Ok(ticket) : Results.NotFound(new { message = ApplicationConstants.ErrorMessages.TicketNotFound }))
             .WithName("GetTicketById")
             .Produces<TicketDto>(StatusCodes.Status200OK)
-            .Produces(StatusCodes.Status404NotFound);
+            .Produces(StatusCodes.Status404NotFound)
+            .AllowAnonymous();
 
         ticketGroup.MapPost("", async ([FromServices] ITicketService ticketService, [FromServices] ILogger<TicketService> logger, [FromBody] CreateTicketRequest request) =>
         {
@@ -101,7 +102,8 @@ public static class ApiEndpoints
         .WithName("CreateTicket")
         .Produces<TicketDto>(StatusCodes.Status201Created)
         .Produces(StatusCodes.Status400BadRequest)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
 
         ticketGroup.MapPut("/{id}", async ([FromServices] ITicketService ticketService, [FromServices] ILogger<TicketService> logger, string id, [FromBody] UpdateTicketRequest request) =>
         {
@@ -116,7 +118,8 @@ public static class ApiEndpoints
         .Produces<TicketDto>(StatusCodes.Status200OK)
         .Produces(StatusCodes.Status400BadRequest)
         .Produces(StatusCodes.Status404NotFound)
-        .Produces(StatusCodes.Status500InternalServerError);
+        .Produces(StatusCodes.Status500InternalServerError)
+        .RequireAuthorization();
     }
 }
 

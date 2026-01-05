@@ -16,6 +16,7 @@ export const TicketDetailsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const isLoggedIn = !!localStorage.getItem('token');
 
   const [formData, setFormData] = useState({
     status: '',
@@ -187,48 +188,50 @@ export const TicketDetailsPage: React.FC = () => {
             )}
           </div>
 
-          <div className="detail-section">
-            <h2 className="section-title flex items-center gap-2">
-              <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-              </svg>
-              Update Ticket
-            </h2>
+          {isLoggedIn && (
+            <div className="detail-section">
+              <h2 className="section-title flex items-center gap-2">
+                <svg className="w-6 h-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                </svg>
+                Update Ticket
+              </h2>
 
-            <Select
-              label="Status"
-              value={formData.status}
-              onChange={(value) => setFormData({ ...formData, status: value })}
-              options={statusOptions}
-            />
-
-            <div className="form-group">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Resolution</label>
-              <textarea
-                value={formData.resolution}
-                onChange={(e) => setFormData({ ...formData, resolution: e.target.value })}
-                className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows={4}
-                placeholder="Provide resolution details..."
+              <Select
+                label="Status"
+                value={formData.status}
+                onChange={(value) => setFormData({ ...formData, status: value })}
+                options={statusOptions}
               />
-            </div>
 
-            <div className="form-actions">
-              <Button onClick={handleSave} disabled={saving}>
-                {saving ? (
-                  <span className="flex items-center gap-2">
-                    <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                    </svg>
-                    Saving...
-                  </span>
-                ) : (
-                  'Save Changes'
-                )}
-              </Button>
+              <div className="form-group">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Resolution</label>
+                <textarea
+                  value={formData.resolution}
+                  onChange={(e) => setFormData({ ...formData, resolution: e.target.value })}
+                  className="w-full px-3 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  rows={4}
+                  placeholder="Provide resolution details..."
+                />
+              </div>
+
+              <div className="form-actions">
+                <Button onClick={handleSave} disabled={saving}>
+                  {saving ? (
+                    <span className="flex items-center gap-2">
+                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                      </svg>
+                      Saving...
+                    </span>
+                  ) : (
+                    'Save Changes'
+                  )}
+                </Button>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </Layout>
