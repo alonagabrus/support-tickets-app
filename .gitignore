@@ -48,9 +48,7 @@ frontend/.vite/
 frontend/build/
 
 # Environment and config files with secrets
-backend/appsettings.json
-backend/appsettings.*.json
-!backend/appsettings.Development.json.example
+
 *.env
 *.env.local
 *.env.*.local
